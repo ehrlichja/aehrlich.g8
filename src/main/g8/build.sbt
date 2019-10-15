@@ -1,6 +1,7 @@
 ThisBuild / organization := "$org$"
 ThisBuild / scalaVersion := "2.13.1"
 
+val awsVersion = "1.11.652"
 val catsVersion = "2.0.0"
 val circeVersion = "0.12.2"
 val http4sVersion = "0.21.0-M5"
@@ -21,6 +22,8 @@ commands += Command.command("build") { state =>
 lazy val root = (project in file(".")).
   settings(
     name := "$name$",
+    libraryDependencies += "ch.qos.logback" % "logback-classic" % "1.2.3",
+    libraryDependencies += "com.github.pureconfig" %% "pureconfig" % "0.12.1",
     libraryDependencies += "dev.zio" %% "zio" % zioVersion,
     libraryDependencies += "dev.zio" %% "zio-interop-cats" % "2.0.0.0-RC5",
     libraryDependencies += "org.typelevel" %% "cats-core" % catsVersion,
@@ -34,7 +37,7 @@ lazy val root = (project in file(".")).
     libraryDependencies += "io.circe" %% "circe-parser" % circeVersion,
     libraryDependencies += "io.circe" %% "circe-literal" % circeVersion,
     libraryDependencies += "com.twilio.sdk" % "twilio" % "7.42.0",
-    libraryDependencies += "ch.qos.logback" % "logback-classic" % "1.2.3",
+    libraryDependencies += "com.amazonaws" % "aws-java-sdk-s3" % awsVersion,
     libraryDependencies += "org.scalactic" %% "scalactic" % "3.0.8",
     libraryDependencies += "org.scalatest" %% "scalatest" % "3.0.8" % "test",
     libraryDependencies += "org.scalacheck" %% "scalacheck" % "1.14.1" % "test",

@@ -2,12 +2,14 @@ package $package$
 
 import zio._
 import log._
+import conf._
 
 
 object Main extends App {
 
   val prog: ZIO[Log, Throwable, Unit] = for {
-    _   <- ZIO.accessM((log: Log) => log.log.info("hi"))
+    config <- Conf.load
+    _      <- ZIO.accessM((log: Log) => log.log.info(config.testValue))
   } yield ()
  
   def run(args: List[String]): ZIO[Environment, Nothing, Int] = {
