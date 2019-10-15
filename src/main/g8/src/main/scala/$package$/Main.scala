@@ -1,29 +1,27 @@
 package $package$
 
 import zio._
-import zio.console._
-import org.slf4j.LoggerFactory
+import log._
 
 
 object Main extends App {
 
-  val log = LoggerFactory.getLogger(this.getClass)
-
-  val prog: ZIO[Console, Throwable, Unit] = for {
-    msg <- Task.succeed("Hello world")
-    _   <- putStrLn(msg)
+  val prog: ZIO[Log, Throwable, Unit] = for {
+    _   <- ZIO.accessM((log: Log) => log.log.info("hi"))
   } yield ()
-
-  def run(args: List[String]) = prog.fold(
-    e => {
-      log.info("logger works")
-      println("error running program")
-      println(e.getMessage)
-      1
-    },
-    _ => {
-      1
-    }
-  )
+ 
+  def run(args: List[String]): ZIO[Environment, Nothing, Int] = {
+    val progLive = prog.provide(LogLive)
+    progLive.fold(
+      e => {
+        println("error running program")
+        println(e.getMessage)
+        1
+      },
+      _ => {
+        1
+      }
+    )
+  }
 
 }

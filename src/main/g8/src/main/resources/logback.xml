@@ -9,13 +9,13 @@
   </appender>
 
   <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-    <file>/logs/$name$.log</file>
+    <file>logs/$name$.log</file>
      <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
-       <fileNamePattern>/logs/$name$.%d{yyyy-MM-dd}.%i.log.gz</fileNamePattern>
-            <maxFileSize>10MB</maxFileSize>
-            <totalSizeCap>20GB</totalSizeCap>
-            <maxHistory>60</maxHistory>
-        </rollingPolicy>
+     <fileNamePattern>logs/$name$.%d{yyyy-MM-dd}.%i.log.gz</fileNamePattern>
+          <maxFileSize>10MB</maxFileSize>
+          <totalSizeCap>20GB</totalSizeCap>
+          <maxHistory>60</maxHistory>
+      </rollingPolicy>
     <encoder>
       <pattern>%d{HH:mm:ss.SSS} %-5level -> %msg%n</pattern>
     </encoder>
@@ -28,7 +28,7 @@
 
   <logger name="org.http4s" level="ERROR" />
 
-  <logger name="$package$" level="INFO">
+  <logger name="$package$" level="INFO" additivity="false">
     <appender-ref ref="STDOUT" />
     <appender-ref ref="FILE" />
   </logger>
