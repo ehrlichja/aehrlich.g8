@@ -9,7 +9,7 @@ object Main extends App {
 
   val prog: ZIO[Log, Throwable, Unit] = for {
     config <- Conf.load
-    _      <- ZIO.accessM((log: Log) => log.log.info(config.testValue))
+    _      <- info(config.testValue)
   } yield ()
  
   def run(args: List[String]): ZIO[Environment, Nothing, Int] = {
@@ -21,7 +21,7 @@ object Main extends App {
         1
       },
       _ => {
-        1
+        0
       }
     )
   }

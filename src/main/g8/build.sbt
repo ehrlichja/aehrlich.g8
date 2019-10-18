@@ -42,6 +42,7 @@ lazy val root = (project in file(".")).
     libraryDependencies += "org.scalatest" %% "scalatest" % "3.0.8" % "test",
     libraryDependencies += "org.scalacheck" %% "scalacheck" % "1.14.1" % "test",
     libraryDependencies += "dev.zio" %% "zio-test" % zioVersion,
+    libraryDependencies += "dev.zio" %% "zio-test-sbt" % zioVersion,
     mainClass in Compile := Some("$package$.Main"),
     scalacOptions ++= Seq(
       "-deprecation",
@@ -60,6 +61,7 @@ lazy val root = (project in file(".")).
       "-Ywarn-unused",
       "-Yrangepos"
     ),
+    testFrameworks ++= Seq(new TestFramework("zio.test.sbt.ZTestFramework")),
     dockerExposedPorts := Seq(8080),
     dockerRepository := None
   )

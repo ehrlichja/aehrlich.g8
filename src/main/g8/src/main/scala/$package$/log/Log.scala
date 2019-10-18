@@ -1,4 +1,4 @@
-package com.aehrlich.aehrlichtest.log
+package $package$.log
 
 import zio._
 
